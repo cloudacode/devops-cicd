@@ -63,7 +63,7 @@ CI 도구가 변경 사항을 인지하여 자동으로 수행 되는지 확인
 
 Docker run
 ```
-docker run -p 8000:8000 --name devops -d kcfigaro/devops-flask:latest
+docker run -p 8000:8000 --name devops -d [DockerHub Repo]:latest
 ```
 
 http://localhost:8000 를 통해 웹 페이지 값을 확인
