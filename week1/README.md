@@ -26,21 +26,24 @@ https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html
 https://ap-northeast-2.console.aws.amazon.com/codesuite/codebuild/projects
 
 1. 소스: Github, 내 GitHub 계정의 리포지토리
+   - GitHub Personal access token 생성 필요: [참고](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token)
+   - 권한은 repo, admin:repo_hook [참고](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html#access-tokens-github)
 2. Webhook: 코드 변경이 이 리포지토리에 푸시될 때마다 다시 빌드 선택
 3. 이벤트 유형: PULL_REQUEST_*
 4. 환경: 관리형 이미지, Ubuntu, Standard, aws/codebuild/standard:4.0, 권한 승격 활성화
 5. 서비스 역할: 새 서비스 역할 (프로젝트 생성 후 IAM에서 추후 업데이트)
 6. 환경 변수:
    ```
-   AWS_DEFAULT_REGION: ap-northeast-2
-   AWS_ACCOUNT_ID: [Account ID]
    IMAGE_TAG: latest
-   IMAGE_REPO_NAME: [ECR Repo Name]
+   IMAGE_REPO_NAME: [Docker Repo Name]
+   DOCKERHUB_USER: dockerhub:username
+   DOCKERHUB_PW: dockerhub:password
    ```
+   - username, password 보안을 위해 Secret Manager를 활용하여 암호 저장 및 관리. [참고](https://aws.amazon.com/premiumsupport/knowledge-center/codebuild-docker-pull-image-error/?nc1=h_ls#Store_your_DockerHub_credentials_with_AWS_Secrets_Manager) 
 
 ### Add permission in IAM role
 
-CodeBuild가 도커 이미지를 Amazon ECR 리포지토리에 업로드 가능 하도록 역할 codebuild-*[codebuild project name]*-service-role 에 정책 추가
+CodeBuild가 도커 이미지를 Amazon ECR 리포지토리에 업로드 가능 하도록 역할 codebuild-*[codebuild project name]*-service-role 에 __AmazonEC2ContainerRegistryPowerUser__ 정책 추가
 
 ```
 {
@@ -56,6 +59,10 @@ CodeBuild가 도커 이미지를 Amazon ECR 리포지토리에 업로드 가능 
     "Effect": "Allow"
 }
 ```
+
+SecretManager에서 정의한 dockerhub secret도 읽는 권한을 부여 하기 위해 
+__CodeBuildSecretsManagerPolicy-[codebuild project name]-ap-northeast-2__
+의 Resource에 secretsmanager:GetSecretValue 항목에 [Secertmanager dockerhub](https://ap-northeast-2.console.aws.amazon.com/secretsmanager/home?region=ap-northeast-2#/secret?name=dockerhub) ARN 추가
 
 ### Verify Codebuild Job manually
 
