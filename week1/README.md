@@ -8,10 +8,6 @@ CI 도구를 통해 소스 관리 하고 master로 Pull Request가 되면 어플
 
 ## 구성 하기
 
-### Create your ECR registery 
-
-https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html 
-
 ### Upload source code to github repo
 
 ```bash
@@ -43,23 +39,6 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codebuild/projects
 
 ### Add permission in IAM role
 
-CodeBuild가 도커 이미지를 Amazon ECR 리포지토리에 업로드 가능 하도록 역할 codebuild-*[codebuild project name]*-service-role 에 __AmazonEC2ContainerRegistryPowerUser__ 정책 추가
-
-```
-{
-    "Action": [
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:CompleteLayerUpload",
-        "ecr:GetAuthorizationToken",
-        "ecr:InitiateLayerUpload",
-        "ecr:PutImage",
-        "ecr:UploadLayerPart"
-    ],
-    "Resource": "*",
-    "Effect": "Allow"
-}
-```
-
 SecretManager에서 정의한 dockerhub secret도 읽는 권한을 부여 하기 위해 
 __CodeBuildSecretsManagerPolicy-[codebuild project name]-ap-northeast-2__
 의 Resource에 secretsmanager:GetSecretValue 항목에 [Secertmanager dockerhub](https://ap-northeast-2.console.aws.amazon.com/secretsmanager/home?region=ap-northeast-2#/secret?name=dockerhub) ARN 추가
@@ -68,9 +47,11 @@ __CodeBuildSecretsManagerPolicy-[codebuild project name]-ap-northeast-2__
 
 수동으로 수행 및 콘솔에서 확인
 
-### ECR image 
+### DockerHub image 
 
 이미지가 정상적으로 업로드 되었는지 확인 
+
+https://hub.docker.com
 
 ### Pull Request 테스트
 
@@ -78,16 +59,11 @@ __CodeBuildSecretsManagerPolicy-[codebuild project name]-ap-northeast-2__
 ![PR](build_process_by_github_webhook.png)
 CI 도구가 변경 사항을 인지하여 자동으로 수행 되는지 확인
 
-### (옵션) ECR image 로컬 테스트
-
-ECR에 로그인
-```
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin [Your Account ID].dkr.ecr.ap-northeast-2.amazonaws.com/devops
-```
+### (옵션) Docker image 로컬 테스트
 
 Docker run
 ```
-docker run -p 8000:8000 --name devops -d [Your Account ID].dkr.ecr.ap-northeast-2.amazonaws.com/devops
+docker run -p 8000:8000 --name devops -d kcfigaro/devops-flask:latest
 ```
 
 http://localhost:8000 를 통해 웹 페이지 값을 확인
