@@ -5,6 +5,7 @@
 ## 시작하기
 빌드 자동화 실습을 위해 맨 상위 디렉토리에 Dockerfile, Python Flask app, Python requirements 파일 그리고 CodeBuild용 buildspec 설정 파일이 작성되어 있습니다.
 AWS 환경을 기준으로 실습이 가이드가 작성 있으며 구성 방법에 대해서는 각 Week별로 디렉토리의 README에 정리가 되어 있습니다. 
+![CICD Workflow](./DevOps_CICD_workflow.png)
 
 ## 주의사항
 본 레포지토리의 소스코드는 테스트, 실습, 데모용으로 작성 되어 있으며 상용 환경의 책임을 지지 않습니다.
