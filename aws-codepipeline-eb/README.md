@@ -40,9 +40,18 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
 #### Step 3: Build Stage
 1. Provider: AWS Codebuild
-2. Project Name: 1주차 실습에서 생성한 Build 프로젝트 선택
-3. 환경 변수: 기존 Build 프로젝트에 이미 설정되어 있으므로 추가 없음
-4. 빌드 유형: 단일 빌드
+2. Project Name: Create Project
+3. 환경: 관리형 이미지, Ubuntu, Standard, aws/codebuild/standard:4.0, 권한 승격 활성화
+4. 서비스 역할: 새 서비스 역할 (프로젝트 생성 후 IAM에서 추후 업데이트)
+5. 환경 변수:
+   ```
+   IMAGE_TAG: latest
+   IMAGE_REPO_NAME: [Docker Repo Name]
+   DOCKERHUB_USER: dockerhub:username
+   DOCKERHUB_PW: dockerhub:password
+   ```
+6. Buildspec: buildspec 파일 사용, Buildspec name: buildspec_eb.yml    
+7. 배치 구성, 로그: Default
 
 #### Step 4: Deploy Stage
 1. Provider: AWS Elastic Beanstalk
