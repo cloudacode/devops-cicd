@@ -50,6 +50,7 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
    DOCKERHUB_USER: dockerhub:username
    DOCKERHUB_PW: dockerhub:password
    ```
+   - [앞 실습](../github-aws-codebuild-dockerhub/README.md)과 같이 username, password는 Secret Manager
 6. Buildspec: buildspec 파일 사용, Buildspec name: buildspec_eb.yml    
 7. 배치 구성, 로그: Default
 
