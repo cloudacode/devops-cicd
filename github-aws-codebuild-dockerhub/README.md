@@ -1,4 +1,4 @@
-# DevOps - Week1 실습 
+# DevOps - Continuous Integration 실습 
 
 __개발 빌드 환경 구성 및 Docker 빌드 자동화 실습__
 
@@ -56,7 +56,7 @@ https://hub.docker.com
 ### Pull Request 테스트
 
 별도의 Branch를 만들어 app.py의 Hello World 리턴값 변경 후 main으로 PR 수행
-![PR](build_process_by_github_webhook.png)
+![PR](./images/build_process_by_github_webhook.png)
 CI 도구가 변경 사항을 인지하여 자동으로 수행 되는지 확인
 
 ### (옵션) Docker image 로컬 테스트

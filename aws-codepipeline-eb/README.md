@@ -1,14 +1,18 @@
-# DevOps - Week2 실습 
+# DevOps - CICD Pipeline 실습
 
 __개발 빌드/배포 환경 자동화 실습__
 
 CI/CD Pipeline 도구를 통해 소스 관리, 도커 빌드 자동화, 서비스 배포 까지 자동화
 
 ## 사전 준비 사항
-[Week1 CI Integration](../week1/README.md)
+[CI Integration](../github-aws-codebuild-dockerhub/README.md)
 
 ## 구성 하기
-![CICD](./DevOps-Week2.png)
+![Architecture](./images/system_architecutre.png)
+
+### Setup ElasticBeanstalk
+
+...
 
 ### Setup codepipeline
 
