@@ -17,6 +17,6 @@ phases:
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '{"AWSEBDockerrunVersion":"1","Image":{"Name":"%s"},"Ports":[{"ContainerPort":"8000"}]}' $IMAGE_REPO_NAME:$IMAGE_TAG > dockerrun.aws.json
+      - printf '[{"name":"devops-flask","imageUri":"%s"}]' $IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-    files: dockerrun.aws.json
+    files: imagedefinitions.json
