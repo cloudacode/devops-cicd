@@ -12,7 +12,15 @@ CI/CD Pipeline 도구를 통해 소스 관리, 도커 빌드 자동화, 서비�
 
 ### Setup ElasticBeanstalk
 
-...
+https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/welcome
+
+#### Create Application(Create a Web app)
+
+1. Application Name
+2. Platform: Docker, Platform Branch: Docker running...Amazon Linux 2, Platform version: Recommended
+3. Application Code: Sample application
+
+EB(ElasticBeanstalk) app 생성 확인까지 약 5분 소요
 
 ### Setup codepipeline
 
@@ -37,12 +45,11 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 4. 빌드 유형: 단일 빌드
 
 #### Step 4: Deploy Stage
-1. Provider: AWS Codebuild
+1. Provider: AWS Elastic Beanstalk
+2. Application Name, Environment Name: 위에서 자동 생성한 [EB 정보](#create-applicationcreate-a-web-app)
 
-__작성중__
 
-
-### Pull Request/Merge 테스트
+### 테스트 Pull Request/Merge 
 
 별도의 Branch를 만들어 app.py의 Hello World 리턴값 변경 후 main으로 PR 수행 후 이상 없으면 Main에 Merge.
 
@@ -50,7 +57,8 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
 Pipeline 도구가 변경 사항을 인지하여 자동으로 빌드/배포가 수행 되는지 확인
 
-
 ## 참고 자료
 
-- 
+- https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/single-container-docker-configuration.html#docker-configuration.no-compose
+- https://d1.awsstatic.com/whitepapers/DevOps/practicing-continuous-integration-continuous-delivery-on-AWS.pdf
+- https://docs.aws.amazon.com/codebuild/latest/userguide/sample-elastic-beanstalk.html#sample-elastic-beanstalk-codepipeline
