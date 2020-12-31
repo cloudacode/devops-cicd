@@ -58,6 +58,7 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 1. Provider: AWS Elastic Beanstalk
 2. Application Name, Environment Name: 위에서 자동 생성한 [EB 정보](#create-applicationcreate-a-web-app)
 
+구성 완료후 [앞 실습](../github-aws-codebuild-dockerhub/README.md#add-permission-in-iam-role)과 동일하게 IAM에 권한 부여
 
 ### 테스트 Pull Request/Merge 
 
