@@ -50,7 +50,7 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
    DOCKERHUB_USER: dockerhub:username
    DOCKERHUB_PW: dockerhub:password
    ```
-   - [앞 실습](../github-aws-codebuild-dockerhub/README.md)과 같이 username, password는 Secret Manager
+   - [앞 실습](../github-aws-codebuild-dockerhub/README.md#setup-the-codebuild)과 같이 username, password는 Secret Manager
 6. Buildspec: buildspec 파일 사용, Buildspec name: buildspec_eb.yml    
 7. 배치 구성, 로그: Default
 
@@ -67,6 +67,13 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
 Pipeline 도구가 변경 사항을 인지하여 자동으로 빌드/배포가 수행 되는지 확인
+
+### ElasticBeanstalk 환경 URL 확인 
+
+EB의 애플리케이션 [환경 URL](#create-applicationcreate-a-web-app) 확인 후 정상적으로 웹페이지에 변경이 일어났는지 확인
+
+https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/environments
+
 
 ## 참고 자료
 
