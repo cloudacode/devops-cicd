@@ -1,16 +1,13 @@
 version: 0.2
 
-env:
-  parameter-store:
-    TAG_VERSION: v.1.0.1 
-    # Should update this version everytime
-    # Should update example-app/deployment.yaml to the same
-
 phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
       - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PW
+      - TAG_VERSION="v1.0.1"
+      # Should update this version everytime
+      # Should update example-app/deployment.yaml to the same
   build:
     commands:
       - echo Build started on `date`
