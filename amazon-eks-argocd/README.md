@@ -1,9 +1,19 @@
 # DevOps - EKS with ArgoCD Pipeline
 
-## Install eksctl and kubectl
+__EKS로 라이브 환경 구성 및 배포 환경 자동화 실습__
+
+이전 실습에서 코드 빌드 및 테스트 환경을 구축 하였다면 이제 EKS로 상용 환경을 만들고 배포 관리툴(ArgoCD)을 설치해 관리 콘솔로 유연하게 서비스를 배포, 관리 하는 방법을 알아본다. 
+
+## 사전 준비 사항
+[CI Integration](../aws-codepipeline-eb/README.md)
+
+## 구성 하기
+![Architecture](images/amazon-eks-argocd.png)
+
+### Install eksctl and kubectl
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
 
-## Deploy EKS Cluster
+### Deploy EKS Cluster
 
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
 
