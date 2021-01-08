@@ -21,7 +21,7 @@ spec:
         app: devops-flask
     spec:
       containers:
-      - image: cloudacode/devops-flask:380c1cd4
+      - image: cloudacode/devops-flask:v1.0.1
         imagePullPolicy: Always
         name: devops-flask
         ports:
