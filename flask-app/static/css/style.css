@@ -1,0 +1,10 @@
+h1 {
+  border: 2px #000000 solid;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+body {
+  background-color: orange;
+}
