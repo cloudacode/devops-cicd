@@ -58,13 +58,12 @@ eksctl create cluster \
 --name devops-eks-01 \
 --version 1.18 \
 --region ap-northeast-2 \
---nodegroup-name linux-nodes \
+--zones=ap-northeast-2a,ap-northeast-2c \
+--nodegroup-name devops-eks-workers \
 --nodes 1 \
 --nodes-min 1 \
 --nodes-max 3 \
 --with-oidc \
---ssh-access \
---ssh-public-key kc-seoul-devops \
 --managed \
 --alb-ingress-access \
 --spot \
