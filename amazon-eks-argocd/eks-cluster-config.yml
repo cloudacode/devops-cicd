@@ -3,7 +3,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: devops-eks-01
+  name: devops-eks-cluster
   region: ap-northeast-2
 
 availabilityZones: ["ap-northeast-2a", "ap-northeast-2c"]

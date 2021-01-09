@@ -11,7 +11,7 @@ __EKS로 라이브 환경 구성 및 배포 환경 자동화 실습__
 ## Architecture
 ![Architecture](images/amazon-eks-argocd.png)
 
-## 구성 하기
+## 1. EKS 구성 하기
 
 ### Create a IAM user for EKS
 EKS는 Root User로 생성/접속하는 것을 보안상 권고하지 않으며 EKS을 관리하기 위한 권한(Kubernetes RBAC authorization)을 EKS를 생성한 IAM 엔터티(user 혹은 role)로 부터 할당을 시키기 때문에 IAM user 혹은 role를 사용중이지 않다면 필수로 IAM 엔터티를 생성하고 EKS 생성 역할을 부여 해야한다. 
@@ -91,7 +91,7 @@ NAME                                                STATUS   ROLES    AGE   VERS
 ip-192-168-27-236.ap-northeast-2.compute.internal   Ready    <none>   19m   v1.18.9-eks-d1db3c
 ```
 
-## ArgoCD 연동
+## 2. ArgoCD 연동
 
 ### ArgoCD CLI 설치
 https://argoproj.github.io/argo-cd/cli_installation/
@@ -99,13 +99,60 @@ https://argoproj.github.io/argo-cd/cli_installation/
 ### ArgoCD 설치
 https://argoproj.github.io/argo-cd/getting_started/
 
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+This will create a new namespace, `argocd`, where Argo CD services and application resources will live.
+
+### ArgoCD CLI 설치
+
+Download the latest Argo CD version from [https://github.com/argoproj/argo-cd/releases/latest](https://github.com/argoproj/argo-cd/releases/latest). 
+
+More detailed installation instructions can be found via the [CLI installation documentation]([cli_installation.md](https://github.com/argoproj/argo-cd/blob/master/docs/cli_installation.md)).
+
+### ArgoCD Server 접속
+In order to access server via URL, need to expose the Argo CD API server. Change the argocd-server service type to `LoadBalancer`:
+
+```bash
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+LB Endpoint를 노출 하더라도 도메인 등록 시간이 소요 되므로 브라우저를 통한 접근이 가능하기 까지는 약 5분 소요
+
+Check the LB Endpoint
+
+```bash
+kubectl get svc argocd-server    
+NAME            TYPE           CLUSTER-IP       EXTERNAL-IP                                                                    PORT(S)                      AGE
+argocd-server   LoadBalancer   10.100.143.242   a1521dde2ec114a4eb7fb04632cab058-1608723687.ap-northeast-2.elb.amazonaws.com   80:32511/TCP,443:31088/TCP   17m
+```
+
+Also available to get the external LB endpoint as a raw value:
+
+```bash
+kubectl get svc argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+
+초기 `admin` 패스워드 확인 
+```bash
+kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
+```
+
+브라우저를 통해 LB Endpoint 에 접속
+
+!!! note
+    SSL인증서 연동을 하지 않아 브라우저에서 사이트가 안전하지 않는다는 메시지가 발생하기 때문에 실습 때는 무시하고 진행한다.
+
+![argocd-web](images/argo-web-console.png)
+
+
 ### ArgoCD를 통해 App 배포
 https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from-a-git-repository
 
 *업데이트 중..*
 
 ## Clean Up
-실습 완료 후 비용 절약을 위해 실습한 EKS 환경을 삭제
+실습 완료 후 비용 절약을 위해 실습한 EKS 리소스를 정리
 ```
 eksctl delete cluster --region=ap-northeast-2 --name=<your eks cluster name>
 ```
@@ -113,3 +160,4 @@ eksctl delete cluster --region=ap-northeast-2 --name=<your eks cluster name>
 ## Trobleshooting
 https://aws.amazon.com/premiumsupport/knowledge-center/amazon-eks-cluster-access/
 
+https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/troubleshooting.html#unauthorized
