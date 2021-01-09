@@ -24,7 +24,7 @@ AWS CLI 초기 설정: [관련 링크](https://docs.aws.amazon.com/cli/latest/us
 
 ## 1. EKS 구성 하기
 
-### Create a IAM user for EKS
+### IAM user for EKS
 EKS는 Root User로 생성/접속하는 것을 보안상 권고하지 않으며 EKS을 관리하기 위한 권한(Kubernetes RBAC authorization)을 EKS를 생성한 IAM 엔터티(user 혹은 role)로 부터 할당을 시키기 때문에 IAM user 혹은 role를 사용중이지 않다면 필수로 IAM 엔터티를 생성하고 EKS 생성 역할을 부여 해야한다. 
 
 > **_Important:_** 
@@ -55,7 +55,7 @@ EKS 환경 배포
 ```
 $ eksctl create cluster -f ./eks-cluster-config.yml
 ```
-약 K8S Cluster 구성까지 15분 소요
+EKS Cluster 구성 완료 까지 약 15분 소요
 
 만약 CLI로 하고 싶다면 다음과 같이 수행
 ```
@@ -114,7 +114,7 @@ This will create a new namespace, `argocd`, where Argo CD services and applicati
 
 Download the latest Argo CD version from [https://github.com/argoproj/argo-cd/releases/latest](https://github.com/argoproj/argo-cd/releases/latest). 
 
-More detailed installation instructions can be found via the [CLI installation documentation]([cli_installation.md](https://github.com/argoproj/argo-cd/blob/master/docs/cli_installation.md)).
+More detailed installation instructions can be found via the [CLI installation documentation](https://github.com/argoproj/argo-cd/blob/master/docs/cli_installation.md).
 
 ### ArgoCD Server 접속
 In order to access server via URL, need to expose the Argo CD API server. Change the argocd-server service type to `LoadBalancer`:
@@ -127,7 +127,7 @@ LB Endpoint를 노출 하더라도 도메인 등록 시간이 소요 되므로 �
 Check the LB Endpoint
 
 ```bash
-kubectl get svc argocd-server    
+kubectl get -n argocd svc argocd-server    
 NAME            TYPE           CLUSTER-IP       EXTERNAL-IP                                                                    PORT(S)                      AGE
 argocd-server   LoadBalancer   10.100.143.242   a1521dde2ec114a4eb7fb04632cab058-1608723687.ap-northeast-2.elb.amazonaws.com   80:32511/TCP,443:31088/TCP   17m
 ```
@@ -135,7 +135,7 @@ argocd-server   LoadBalancer   10.100.143.242   a1521dde2ec114a4eb7fb04632cab058
 Also available to get the external LB endpoint as a raw value:
 
 ```bash
-kubectl get svc argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+kubectl get -n argocd svc argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
 ```
 
 초기 `admin` 패스워드 확인 
@@ -153,8 +153,6 @@ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut
 
 ### ArgoCD를 통해 App 배포
 
-https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from-a-git-repository
-
 웹 콘솔에 접속후 __+ New App__ 클릭하여 신규 애플리케이션 생성
 
 - GENERAL>
@@ -162,9 +160,9 @@ https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from
   - Project: default
   - Sync Policy: Manual
 - SOURCE>
-  - Repo URL: 본인의 github repo 주소 e.g., https://github.com/cloudacode/devops_cicd
+  - Repo URL: 본인의 github repo 주소, e.g., https://github.com/cloudacode/devops_cicd
   - Revision: main
-  - Path: 쿠버 manifest를 정의한 디렉토리. e.g.,devops-flask-manifest
+  - Path: 쿠버 manifest를 정의한 디렉토리, e.g.,devops-flask-manifest
 - DESTINATION>
   - Cluster URL: https://kubernetes.default.svc
   - Namespace: default
@@ -191,7 +189,10 @@ __Service__(화면에서는 devops-flask-svc)
 eksctl delete cluster --region=ap-northeast-2 --name=<your eks cluster name>
 ```
 
-## Trobleshooting
+## Trobleshooting - EKS
 https://aws.amazon.com/premiumsupport/knowledge-center/amazon-eks-cluster-access/
 
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/troubleshooting.html#unauthorized
+
+## Reference
+https://argoproj.github.io/argo-cd/getting_started
