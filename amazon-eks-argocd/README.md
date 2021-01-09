@@ -5,8 +5,19 @@ __EKS로 라이브 환경 구성 및 배포 환경 자동화 실습__
 코드 빌드 및 테스트 환경을 구축 하였다면 이제 EKS로 상용 환경을 만들고 배포 관리툴(ArgoCD)을 설치해 관리 콘솔로 유연하게 서비스를 배포, 관리 효율화 
 
 ## 사전 준비 사항
+
+### (Optional) CI 연동
 수동으로 도커 빌드, 허브에 이미지 업로드 하며 실습 가능하나, 유연하게 도커 이미지 자동 빌드, 업로드를 위한 CI 연동
 [CI Integration](../github-aws-codebuild-dockerhub/README.md)
+
+### AWS CLI 설정
+
+AWS CLI 설치: [관련 링크](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+
+AWS CLI 초기 설정: [관련 링크](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+
+!!! note 
+    원활한 실습을 위해 `AdministratorAccess` policy 부여
 
 ## Architecture
 ![Architecture](images/amazon-eks-argocd.png)
@@ -27,13 +38,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 Otherwise, create a IAM user with eksctl minimum policies.
 https://eksctl.io/usage/minimum-iam-policies/
 
-추후 eksctl CLI활용을 위해 access key, secret key 발급(보안 자격 증명 -> 엑세스 키) 및 aws cli에 credential 등록
-
-aws cli 설치: [관련 링크](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
-
-aws configure 초기 설정: [관련 링크](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
-
-IAM 엔터티가 잘 적용 됬는지 확인
+현재 세션의 IAM 엔터티 확인 방법
 ```bash
 $ aws sts get-caller-identity
 ```
@@ -150,7 +155,6 @@ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut
 
 https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from-a-git-repository
 
-*업데이트 중..*
 웹 콘솔에 접속후 __+ New App__ 클릭하여 신규 애플리케이션 생성
 
 - GENERAL>
