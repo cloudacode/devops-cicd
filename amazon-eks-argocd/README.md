@@ -147,9 +147,39 @@ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut
 
 
 ### ArgoCD를 통해 App 배포
+
 https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from-a-git-repository
 
 *업데이트 중..*
+웹 콘솔에 접속후 __+ New App__ 클릭하여 신규 애플리케이션 생성
+
+- GENERAL>
+  - Application Name: devops-flask 혹은 your application name
+  - Project: default
+  - Sync Policy: Manual
+- SOURCE>
+  - Repo URL: 본인의 github repo 주소 e.g., https://github.com/cloudacode/devops_cicd
+  - Revision: main
+  - Path: 쿠버 manifest를 정의한 디렉토리. e.g.,devops-flask-manifest
+- DESTINATION>
+  - Cluster URL: https://kubernetes.default.svc
+  - Namespace: default
+
+__Create__ 진행 후
+
+화면을 새로고침 하면 다음과 같이 앱이 하나 등록 되어 Sync가 아직 되지 않은 OutOfSync 상태로 확인 된다. Sync 정책을 Manual 로 하였기 때문에 초기에 OutOfSync 상태는 정상 이다.
+![argocd-app-creation](images/argo-app-creation.png) 
+
+__SYNC__ 수행 후
+
+레포지토리 URL 이 올바르게 되어 있다면 문제 없이 sync가 완료되고 상세 페이지 역시 아래처럼 확인 가능하다 
+![argocd-app-synced](images/argo-app-synced.png) 
+
+__Service__(화면에서는 devops-flask-svc)
+
+를 선택하면 Hostnames 항목에 앱에 접속 가능한 LB URL이 생성 되었으며 웹 브라우져로 접속후 정상적으로 앱이 기동 되었는지 확인
+![argocd-app-checked](images/argo-app-checked.png) 
+
 
 ## Clean Up
 실습 완료 후 비용 절약을 위해 실습한 EKS 리소스를 정리
