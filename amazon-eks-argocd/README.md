@@ -5,7 +5,13 @@ __EKS로 라이브 환경 구성 및 배포 환경 자동화 실습__
 코드 빌드 및 테스트 환경을 구축 하였다면 이제 EKS로 상용 환경을 만들고 배포 관리툴(ArgoCD)을 설치해 관리 콘솔로 유연하게 서비스를 배포, 관리 효율화 
 
 ## 사전 준비 사항
-[CI Integration](../aws-codepipeline-eb/README.md)
+수동으로 도커 빌드, 허브에 이미지 업로드 하며 실습 가능하나, 유연하게 도커 이미지 자동 빌드, 업로드를 위한 CI 연동
+[CI Integration](../github-aws-codebuild-dockerhub/README.md)
+
+## Architecture
+![Architecture](images/amazon-eks-argocd.png)
+
+## 구성 하기
 
 ### Create a IAM user for EKS
 EKS는 Root User로 생성/접속하는 것을 보안상 권고하지 않으며 EKS을 관리하기 위한 권한(Kubernetes RBAC authorization)을 EKS를 생성한 IAM 엔터티(user 혹은 role)로 부터 할당을 시키기 때문에 IAM user 혹은 role를 사용중이지 않다면 필수로 IAM 엔터티를 생성하고 EKS 생성 역할을 부여 해야한다. 
@@ -35,9 +41,6 @@ $ aws sts get-caller-identity
 ### Install eksctl and kubectl
 
 EKS 생성을 위해 eksctl을 설치 하고 추후 kubernetes 관리를 위해 kubectl도 사전에 설치 필요: [설치 관련 링크](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html)
-
-## 구성 하기
-![Architecture](images/amazon-eks-argocd.png)
 
 ### Deploy EKS Cluster
 
@@ -100,7 +103,14 @@ https://argoproj.github.io/argo-cd/getting_started/
 ### ArgoCD를 통해 App 배포
 https://argoproj.github.io/argo-cd/getting_started/#6-create-an-application-from-a-git-repository
 
-## Trobleshooting
+*업데이트 중..*
 
+## Clean Up
+실습 완료 후 비용 절약을 위해 실습한 EKS 환경을 삭제
+```
+eksctl delete cluster --region=ap-northeast-2 --name=<your eks cluster name>
+```
+
+## Trobleshooting
 https://aws.amazon.com/premiumsupport/knowledge-center/amazon-eks-cluster-access/
 
