@@ -45,6 +45,8 @@ SecretManager에서 정의한 dockerhub secret도 읽는 권한을 부여 하기
 __CodeBuildSecretsManagerPolicy-[codebuild project name]-ap-northeast-2__
 의 Resource에 secretsmanager:GetSecretValue 항목에 [Secertmanager dockerhub](https://ap-northeast-2.console.aws.amazon.com/secretsmanager/home?region=ap-northeast-2#/secret?name=dockerhub) ARN 추가
 
+![secretsmanger policy](images/codebuild-secretsmangerpolicy.png)
+
 ### Verify Codebuild Job manually
 
 수동으로 수행 및 콘솔에서 확인
