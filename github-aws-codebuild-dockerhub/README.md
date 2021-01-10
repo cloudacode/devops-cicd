@@ -26,6 +26,8 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codebuild/projects
    - 권한은 repo, admin:repo_hook [참고](https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html#access-tokens-github)
 2. Webhook: 코드 변경이 이 리포지토리에 푸시될 때마다 다시 빌드 선택
 3. 이벤트 유형: PULL_REQUEST_*
+   - 만약 특정 Branch 이름이나 Tag로 이벤트를 감지 하고 싶다면 `Start a build under these condition`에 필터를 추가 하면 된다. [참고 문서](https://docs.aws.amazon.com/codebuild/latest/userguide/github-webhook.html)
+   e.g., Feature/ 브랜치만 = HEAD_REF: ^refs/heads/feature/*
 4. 환경: 관리형 이미지, Ubuntu, Standard, aws/codebuild/standard:4.0, 권한 승격 활성화
 5. 서비스 역할: 새 서비스 역할 (프로젝트 생성 후 IAM에서 추후 업데이트)
 6. 환경 변수:
