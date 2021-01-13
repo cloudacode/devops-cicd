@@ -4,6 +4,9 @@ __Prometheus Grafana Moniting__
 
 K8S 환경과 같은 분산형 클라우드 환경에서 서비스를 운영 하기 위해서는 모니터링이 필수 요소이며 Prometheus, Grafana를 통해 서비스 모니티링 수행 
 
+![k8s prometheus grafana](https://478h5m1yrfsa3bbe262u7muv-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/prometheus_kubernetes_diagram_overview.png)
+Credit: https://sysdig.com/blog/kubernetes-monitoring-prometheus/
+
 ## 사전 준비 사항
 
 ### Helm CLI 설치
@@ -12,12 +15,17 @@ https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/helm.html
 
 ## 1. EKS에 Prometheus 설치
 
-https://github.com/prometheus-community/helm-charts
-
+### Prometheus Helm Repo 등록 
 ```
-kubectl create namespace prometheus
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
+```
+
+https://github.com/prometheus-community/helm-charts
+
+### Prometheus 설치(Helm 사용)
+```
+kubectl create namespace prometheus
 
 helm install prometheus prometheus-community/prometheus \
     --namespace prometheus \
