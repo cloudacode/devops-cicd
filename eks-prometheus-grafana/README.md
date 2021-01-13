@@ -9,9 +9,27 @@ Credit: https://sysdig.com/blog/kubernetes-monitoring-prometheus/
 
 ## 사전 준비 사항
 
-### Helm CLI 설치
+### EKS Cluster 환경
+[eks cluster 환경 구축](../amazon-eks-argocd/README.md)
 
+### Helm CLI 설치
 https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/helm.html
+
+### (option) Deploy wordpress helm chart via ArgoCD
+https://helm.sh/docs/topics/chart_tests/
+
+- Enable `AUTO-CREATE NAMESPACE`
+- SOURCE
+  - Repository URL: `https://charts.bitnami.com/bitnami`/ `HELM`
+  - Chart: `wordpress`, `10.4.0`
+- DESTINATION
+  - Cluster URL: https://kubernetes.default.svc
+  - Namespace: wordpress
+
+![helm wordpress](images/helm-wordpress-argo-parameter.png)
+
+배포 후 SVC 상세 정보를 통해 Endpoint 접속
+![helm wordpress svc](images/helm-wordpress-argo-svc.png)
 
 ## 1. EKS에 Prometheus 설치
 
@@ -63,13 +81,16 @@ helm install grafana grafana/grafana \
 kubectl get svc -n grafana grafana -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
 ```
 
-## 3. Monitoring Dashboard 구성 
-   __+__ import -> 6417 -> Load
+## 3. Monitoring Dashboard 구성  
 
+왼쪽 텝 __+__ Import -> Upload Json File:
+`kubernetes-cluster-prometheus_rev1.json` 업로드
 
-### 4. (option) Deploy wordpress helm chart via ArgoCD
-https://helm.sh/docs/topics/chart_tests/
+Options
+  - prometheus: `Promethesus`
 
+아래처럼 리소스에 대한 모니터링 대쉬보드 확인
+![K8S Dashboard](images/grafana-k8s-dashboard.png)
 
 ### 5. Clean up
 
