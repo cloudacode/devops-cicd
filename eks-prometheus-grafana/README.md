@@ -20,8 +20,10 @@ https://helm.sh/docs/topics/chart_tests/
 
 - Enable `AUTO-CREATE NAMESPACE`
 - SOURCE
-  - Repository URL: `https://charts.bitnami.com/bitnami`/ `HELM`
-  - Chart: `wordpress`, `10.4.0`
+  - Repository URL: `https://charts.bitnami.com/bitnami` 
+  - Type: `HELM`
+  - Chart: `wordpress`
+  - Version: `10.4.0`
 - DESTINATION
   - Cluster URL: https://kubernetes.default.svc
   - Namespace: wordpress
