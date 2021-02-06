@@ -97,7 +97,6 @@ Go to [codebuild projects](https://ap-northeast-2.console.aws.amazon.com/codesui
 ### DockerHub image 
 
 이미지가 정상적으로 업로드 되었는지 확인 
-
 https://hub.docker.com
 
 ### Pull Request 테스트
@@ -116,6 +115,7 @@ docker run -p 8000:8000 --name devops -d [DockerHub Repo]:latest
 http://localhost:8000 를 통해 웹 페이지 값을 확인
 
 ## 참고 자료
-
+- https://docs.aws.amazon.com/ko_kr/whitepapers/latest/introduction-devops-aws/introduction-devops-aws.pdf
+- https://docs.aws.amazon.com/ko_kr/whitepapers/latest/practicing-continuous-integration-continuous-delivery/practicing-continuous-integration-continuous-delivery.pdf
 - https://docs.aws.amazon.com/ko_kr/codebuild/latest/userguide/sample-docker.html
 - https://docs.aws.amazon.com/ko_kr/codebuild/latest/userguide/github-webhook.html
