@@ -19,7 +19,3 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_NAME:$TAG_VERSION
-      - echo Writing image definitions file...
-      - printf '{"AWSEBDockerrunVersion":"1","Image":{"Name":"%s"},"Ports":[{"ContainerPort":"8000"}]}' $IMAGE_REPO_NAME:$TAG_VERSION > Dockerrun.aws.json
-artifacts:
-    files: Dockerrun.aws.json
