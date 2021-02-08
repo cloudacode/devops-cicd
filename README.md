@@ -4,10 +4,11 @@
 
 * 블로그: https://medium.com/@cloudacode
 * 팟케스트: http://www.podbbang.com/ch/1779436
-
+* 클럽하우스: @kcch
+  
 ## 시작하기
-빌드 자동화 실습을 위해 맨 상위 디렉토리에 Dockerfile, Python Flask app, Python requirements 파일 그리고 CodeBuild용 buildspec 설정 파일이 작성되어 있습니다.
-AWS 환경을 기준으로 실습이 가이드가 작성 있으며 구성 방법에 대해서는 각 Week별로 디렉토리의 README에 정리가 되어 있습니다. 
+빌드 자동화 실습을 위해 맨 상위 디렉토리에 Dockerfile, Python Flask app, 그리고 CodeBuild용 buildspec 설정 파일이 작성되어 있습니다.
+AWS 환경을 기준으로 실습이 가이드가 작성 있으며 구성 방법에 대해서는 각 모듈별로 디렉토리의 README에 정리가 되어 있습니다. 
 ![CICD Workflow](./images/devops-cicd-workshop.png)
 
 ## 주의사항
@@ -15,3 +16,5 @@ AWS 환경을 기준으로 실습이 가이드가 작성 있으며 구성 방법
 
 ## 라이센스
 모든 코드들은 MIT 라이센스를 따르고 있습니다. LICENSE.txt를 참조 하십시오.
+* 이 소프트웨어를 누구라도 무상으로 제한없이 취급해도 좋습니다. 단, 저작권 표시 및 이 허가 표시를 소프트웨어의 모든 복제물 또는 중요한 부분에 기재해야 합니다.
+* 저자 또는 저작권자는 소프트웨어에 관해서 아무런 책임을 지지 않습니다.
