@@ -4,6 +4,7 @@
 
 * 블로그: https://medium.com/@cloudacode
 * 팟케스트: http://www.podbbang.com/ch/1779436
+* 디스코드: https://discord.gg/Eph2WnAXmS
 * 클럽하우스: @kcch
   
 ## 시작하기
