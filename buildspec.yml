@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PW
+      - TAG_VERSION="latest"
+      # Should update this version everytime
+      # Should update devops-flask-manifest/deployment.yaml to the same
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPO_NAME:$TAG_VERSION .
+      - docker tag $IMAGE_REPO_NAME:$TAG_VERSION $IMAGE_REPO_NAME:$TAG_VERSION
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $IMAGE_REPO_NAME:$TAG_VERSION
+      - echo Writing image definitions file...
+      - printf '{"AWSEBDockerrunVersion":"1","Image":{"Name":"%s"},"Ports":[{"ContainerPort":"8000"}]}' $IMAGE_REPO_NAME:$TAG_VERSION > Dockerrun.aws.json
+artifacts:
+    files: Dockerrun.aws.json

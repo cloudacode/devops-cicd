@@ -35,7 +35,7 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 #### Step 2: Source Stage
 1. 소스: Github(Version 1), 내 GitHub 계정의 리포지토리
    - Github v2가 권고 사항이나 실습은 v1로 진행: [v2 변경시 참고](https://docs.aws.amazon.com/ko_kr/codepipeline/latest/userguide/update-github-action-connections.html)
-2. Repository, Branch: 본인의 Repo, main
+2. Repository, Branch: 본인의 Repo, 원하는 Branch name e.g., main, dev, release
 3. Detection option: GitHub Webhook(recommended)
 
 #### Step 3: Build Stage
