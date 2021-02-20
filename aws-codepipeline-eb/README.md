@@ -1,20 +1,25 @@
 # DevOps - CICD Pipeline 실습
 
-__개발 빌드/배포 환경 자동화 실습__
+**개발 빌드/배포 환경 자동화 실습**
 
 CI/CD Pipeline 도구를 통해 소스 관리, 도커 빌드 자동화, 서비스 배포 까지 자동화
 
-## 사전 준비 사항
+**Time to Complete: 2-3 hours**
+
+**Tutorial Prereqs:**
+
 [CI Integration](../github-aws-codebuild-dockerhub/README.md)
 
-## 구성 하기
+* **An AWS Account and Administrator-level or PowerUser-level access to it**
+
+## System Architecture
 ![Architecture](./images/system_architecutre.png)
 
-### Setup ElasticBeanstalk
+## 1. Setup ElasticBeanstalk
 
 https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/welcome
 
-#### Create Application(Create a Web app)
+### Create Application(Create a Web app)
 
 1. Application Name
 2. Platform: Docker, Platform Branch: Docker running...Amazon Linux 2, Platform version: Recommended
@@ -22,37 +27,39 @@ https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-no
 
 EB(ElasticBeanstalk) app 생성 확인까지 약 5분 소요
 
-### Setup codepipeline
+## 2. Update the Buildspec file for EB
+
+ElasticBeanstalk를 위해 buildspec.yml 업데이트
+
+기존 buildspec 파일에 아래 내용 추가 혹은 buildspec_db.yml 파일에 내용 복사 붙여넣기
+```bash
+..
+      - echo Writing image definitions file...
+      - printf '{"AWSEBDockerrunVersion":"1","Image":{"Name":"%s"},"Ports":[{"ContainerPort":"8000"}]}' $IMAGE_REPO_NAME:$TAG_VERSION > Dockerrun.aws.json
+artifacts:
+    files: Dockerrun.aws.json
+```
+
+## 3. Setup codepipeline
 
 https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
-#### Step 1: Pipeline settings
+### Step 1: Pipeline settings
 1. Pipeline Name
 2. Service Role: New Service Role
 3. Role Name: `AWSCodePipelineServiceRole-ap-northeast-2-[Pipeline Name]`
    - AWS CodePipeline이 이 새 파이프라인에 사용할 서비스 역할을 생성하도록 허용 활성화
   
-#### Step 2: Source Stage
+### Step 2: Source Stage
 1. 소스: Github(Version 1), 내 GitHub 계정의 리포지토리
    - Github v2가 권고 사항이나 실습은 v1로 진행: [v2 변경시 참고](https://docs.aws.amazon.com/ko_kr/codepipeline/latest/userguide/update-github-action-connections.html)
 2. Repository, Branch: 본인의 Repo, 원하는 Branch name e.g., main, dev, release
 3. Detection option: GitHub Webhook(recommended)
 
-#### Step 3: Build Stage
-1. Provider: AWS Codebuild
-2. Project Name: Create Project
-3. 환경: 관리형 이미지, Ubuntu, Standard, aws/codebuild/standard:4.0, 권한 승격 활성화
-4. 서비스 역할: 새 서비스 역할 (프로젝트 생성 후 IAM에서 추후 업데이트)
-5. 환경 변수:
-   ```
-   IMAGE_TAG: latest
-   IMAGE_REPO_NAME: [Docker Repo Name]
-   DOCKERHUB_USER: dockerhub:username
-   DOCKERHUB_PW: dockerhub:password
-   ```
-   - [앞 실습](../github-aws-codebuild-dockerhub/README.md#setup-the-codebuild)과 같이 username, password는 Secret Manager
-6. Buildspec: buildspec 파일 사용, Buildspec name: buildspec_eb.yml    
-7. 배치 구성, 로그: Default
+### Step 3: Build Stage
+
+[앞 실습](../github-aws-codebuild-dockerhub/README.md#setup-the-codebuild)
+에서 설정한 codebuild 프로젝트 활용
 
 #### Step 4: Deploy Stage
 1. Provider: AWS Elastic Beanstalk
@@ -62,7 +69,7 @@ https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
 ### 테스트 Pull Request/Merge 
 
-별도의 Branch를 만들어 app.py의 Hello World 리턴값 변경 후 main으로 PR 수행 후 이상 없으면 Main에 Merge.
+별도의 Branch를 만들어 flask-app의 코드 변경(예, style.css 배경 변경) 후 위에서 설정한 source stage branch(e.g, main or dev)로 PR 수행.
 
 https://ap-northeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines
 
