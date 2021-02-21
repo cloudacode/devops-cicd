@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Logging in to Docker Hub...
       - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PW
-      - TAG_VERSION="v1.0.4"
+      - TAG_VERSION="v1.0.5"
       # Should update this version everytime
       # Should update devops-flask-manifest/deployment.yaml to the same
   build:
