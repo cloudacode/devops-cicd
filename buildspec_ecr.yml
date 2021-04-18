@@ -19,5 +19,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"test-devops","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      # Name should be same as TaskDefinition's Name
 artifacts:
     files: imagedefinitions.json
