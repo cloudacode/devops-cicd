@@ -2,9 +2,9 @@
 
 이 코드 레포는 데브옵스 워크샵 특히 CI/CD 관련 실습 코드, 가이드 문서 등으로 구성 되어 있습니다. 보다 자세한 워크샵의 정보 혹은 실습 멘토링이 필요할 경우 <a href="mailto:cloudacode@gmail.com">cloudacode@gmail.com</a>로 연락 주세요.
 
+cloudacode.com/tutorials
 * 블로그: https://medium.com/@cloudacode
 * 팟케스트: http://www.podbbang.com/ch/1779436
-* 디스코드: https://discord.gg/Eph2WnAXmS
 * 클럽하우스: @kcch
   
 ## 시작하기
