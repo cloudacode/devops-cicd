@@ -32,6 +32,10 @@ EB(ElasticBeanstalk) app 생성 확인까지 약 5분 소요
 ElasticBeanstalk를 위해 buildspec.yml 업데이트
 
 기존 buildspec 파일에 아래 내용 추가 혹은 buildspec_db.yml 파일에 내용 복사 붙여넣기
+
+!!! note
+   만약 본인이 작성한 application의 port가 `8000`이 아니라면 본인 포트에 맞게 변경 필요!
+   e.g., `{"ContainerPort":"3000"}`
 ```bash
 ..
       - echo Writing image definitions file...
