@@ -5,7 +5,6 @@
 * 블로그: https://medium.com/@cloudacode
 * 팟케스트: http://www.podbbang.com/ch/1779436
 * 디스코드: https://discord.gg/Eph2WnAXmS
-* 클럽하우스: @kcch
   
 ## 시작하기
 빌드 자동화 실습을 위해 맨 상위 디렉토리에 Dockerfile, Python Flask app, 그리고 CodeBuild용 buildspec 설정 파일이 작성되어 있습니다.
